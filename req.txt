@@ -1,0 +1,26 @@
+streamlit
+google-generativeai
+python-dotenv
+langchain
+PyPDF2
+chromadb
+faiss-cpu
+langchain_google_genai
+
+import json
+
+with open('transcription 0-20.json', 'r') as file:
+    data = json.load(file)
+
+all_convs =[]
+non_convs =[]
+for index, conversation in enumerate(data["transcription"]):
+    service_convs = []
+    nonService_convs = []
+    for item in conversation[1]["transcription"]:
+        service_convs.append(item['text'])
+    all_convs.append(service_convs)
+    print(f'{index}\n{all_convs[index]}\n')
+
+with open('indexed_conversations.json', 'w') as outfile:
+    json.dump(indexed_convs, outfile, indent=4)
